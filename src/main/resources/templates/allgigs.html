@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Yoyaku</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/giglistStyle.css" th:href="@{css/giglistStyle.css}" />
+	
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	
+</head>
+<body>
+	
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">Yoyaku</h1>
+			<p class="lead" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>
+			<form th:action="@{/logout}" method="post">
+		            <input class="btn btn-primary" type="submit" value="Sign Out"/>
+		    </form>
+	</div>
+   </div>
+  	<h1 class="section-title"><span>Upcoming Gigs</span></h1>
+		<div class="container">
+  	    <table class="table table-hover" >
+	    	<thead>
+		    	<tr>
+		    		<th>Date</th>
+		    		<th>Title</th>
+		    		<th>Price(€)</th>
+		    		<th>Venue</th>
+		    		<th>Area</th>
+		    		<th>Artist</th>
+		    		<th></th>
+		    		<th></th>
+		    	</tr>
+	    	</thead>
+	    	<tbody>
+				<tr th:each = "gig : ${gigs}">
+		    		<td th:text="${gig.date}"></td>
+		    		<td th:text="${gig.title}"></td>
+		    		<td th:text="${gig.price}"></td>
+		    		<td th:text="${gig.venue.venueName}"></td>
+		    		<td th:text="${gig.area.areaName}"></td>
+		    		<td th:text="${gig.artist.artistName}"></td>
+		    		<td><a th:href="@{/booking/{gid}(gid=${gig.id})}" class="btn btn-success btn-info">Book</a></td>
+		    		<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-warning" th:href="@{/edit/{id}(id=${gig.id})}">Edit</a></td>
+		    		<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-danger" th:href="@{/delete/{id}(id=${gig.id})}">Delete</a></td>
+		    		<!--   use hasAuthority for thymleaf security like sec="" -->
+		    	</tr>
+	    	</tbody>
+	     </table>
+	 <a sec:authorize="hasRole('ADMIN')" class="btn btn-success" href="/add">Add Gig</a>  
+	</div>
+</body>
+</html>

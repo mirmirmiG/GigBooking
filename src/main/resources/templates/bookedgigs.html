@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/giglistStyle.css" th:href="@{css/giglistStyle.css}" />
+	
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	
+</head>
+<body>
+	
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">Yoyaku</h1>
+			<p class="lead" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>
+			<form th:action="@{/logout}" method="post">
+		            <input class="btn btn-primary" type="submit" value="Sign Out"/>
+		    </form>
+	</div>
+   </div>
+  	<h1 class="section-title"><span>Booked Gigs</span></h1>
+		<div class="container">
+  	    <table class="table table-hover" >
+	    	<thred>
+		    	<tr>
+		    		<th>Date</th>
+		    		<th>Title</th>
+		    		<th>Price(€)</th>
+		    		<th>Venue</th>
+		    		<th>Area</th>
+		    		<th>Artist</th>
+		    		<!-- 
+		    		<th></th>
+		    		 -->
+		    	</tr>
+	    	</thred>
+	    	<tbody>
+				<tr th:each = "user : ${users}">
+					<tr th:each="gig:${user.gigs}">
+			    		<td th:text="${gig.date}"></td>
+			    		<td th:text="${gig.title}"></td>
+			    		<td th:text="${gig.price}"></td>
+			    		<td th:text="${gig.venue.venueName}"></td>
+			    		<td th:text="${gig.area.areaName}"></td>
+			    		<td th:text="${gig.artist.artistName}"></td>
+			    		<!-- 
+			    		<td><a class="btn btn-danger" th:href="@{/cancel/{id}(id=${gig.id})}">Cancel</a></td>
+			    		 -->
+			    	</tr>
+			    </tr>
+	    	</tbody>
+	     </table>
+	</div>
+</body>
+</html>

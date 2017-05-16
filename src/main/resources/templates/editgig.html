@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit gig</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+	<h1>Edit gig</h1>
+
+		<form th:object="${gig}" th:action="@{../save}" action="#" method="post">
+			<div class="form-group">
+				<input type="hidden" th:field="*{id}" class="form-control"/>
+				<label for="title">Title</label>
+				<input type="text" class="form-control" id="date" placeholder="Date" th:field="*{date}" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+			</div>
+			<div class="form-group">
+			<label for="title">Title</label>
+				<input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+			</div>
+			
+			<div class="form-group">
+				<label for="price">Price(€)</label>
+				<input type="text" class="form-control" id="price" th:field="*{price}" placeholder="price" />
+				<div style="clear: both; display: block; height: 10px;"></div>	
+			</div>
+			
+			<label for="venue">Venue</label>
+				<select id="venue" th:field="*{venue}" class="form-control">
+					<option th:each="venue: ${venues}" th:value="${venue.venueid}" th:text="${venue.venueName}"></option>
+				</select>
+				<div style="clear: both; display: block; height: 10px;"></div>
+										
+				<label for="area">Area</label>
+				<select id="area" th:field="*{area}" class="form-control">
+					<option th:each="area: ${areas}" th:value="${area.areaid}" th:text="${area.areaName}"></option>
+				</select>
+				<div style="clear: both; display: block; height: 10px;"></div>
+				
+				<label for="artist">Artist</label>
+				<select id="artist" th:field="*{artist}" class="form-control">
+					<option th:each="artist: ${artists}" th:value="${artist.artistid}" th:text="${artist.artistName}"></option>
+				</select>
+				<input class="btn btn-primary" type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>
